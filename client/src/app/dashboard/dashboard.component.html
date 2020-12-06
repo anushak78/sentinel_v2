@@ -16,7 +16,9 @@
                         <mat-icon matSuffix>search</mat-icon>
                     </mat-form-field>
                 </div>
-                <div></div>
+                <div class="right">
+                    <button mat-raised-button color="primary" (click)="exportAsXLSX()">Export Data</button>
+                </div>
             </div>
             <mat-table #table [dataSource]="table_data">
 
@@ -53,11 +55,10 @@
     <mat-dialog-content>
         <mat-tab-group dynamicHeight [(selectedIndex)]="tabIndex">
             <mat-tab label="Step 1" [disabled]="true">
-                <div class="box-container">
+                <div class="box-container" style="height: 250px;">
                     Please select ID of your choice
                     <mat-radio-group class="example-radio-group" [(ngModel)]="doc_choice">
-                        <mat-radio-button value="0" class="example-radio-button" color="primary"
-                            (change)="radioChange($event)"> UID</mat-radio-button>
+                        <mat-radio-button value="0" class="example-radio-button" color="primary"> UID</mat-radio-button>
                         <mat-radio-button value="1" class="example-radio-button" color="primary"> VID</mat-radio-button>
                         <mat-radio-button value="2" class="example-radio-button" color="primary"> Aadhaar
                         </mat-radio-button>
@@ -65,7 +66,7 @@
                     <div class="field" *ngIf="doc_choice != 0">
                         <mat-form-field>
                             <mat-label>Enter value</mat-label>
-                            <input type="text" matInput [(ngModel)]="doc_value" (blur)="onBlurMethod()">
+                            <input type="text" matInput [(ngModel)]="doc_value">
                         </mat-form-field>
                     </div>
                     <!--
@@ -82,6 +83,9 @@
                         </mat-form-field>
                     </div>
                     -->
+                    <div style="padding-top: 15px;" class="right">
+                     <button mat-raised-button color="primary" (click)="onNextMethod()">Next >></button>
+                    </div>
                 </div>
 
             </mat-tab>
@@ -92,7 +96,7 @@
                 </div>
             </mat-tab>
             <mat-tab label="Step 3" [disabled]="true">
-                <div class="box-container center">
+                <div class="box-container center" style="height: 250px;">
                     <h2 class="mat-h1">
                         <span style="color: green!important"><b><mat-icon>done_outline</mat-icon>Completed Successfully</b></span>
                     </h2>

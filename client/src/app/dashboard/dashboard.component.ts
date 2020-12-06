@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { MessageDialogComponent } from "../dialog/message/message.component";
 import { MatPaginator } from '@angular/material/paginator';
 import { HttpClient } from '@angular/common/http';
+import { JsontoexcelService } from '../Service/jsontoexcel.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,7 +27,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(private router: Router,
     private dialog: MatDialog,
-    private httpClient: HttpClient) {
+    private httpClient: HttpClient,
+    private excelService: JsontoexcelService) {
   }
 
   ngOnInit() {
@@ -61,10 +63,6 @@ export class DashboardComponent implements OnInit {
     this.dialog.open(templateRef, config)
   }
 
-  edit() {
-    this.dialog.closeAll()
-  }
-
   gotoPage(pageName: string) {
     this.router.navigate([pageName])
   }
@@ -75,14 +73,6 @@ export class DashboardComponent implements OnInit {
     this.table_data.filter = filterValue;
   }
 
-  checkChange() {
-    console.log(this.doc_choice)
-  }
-
-  radioChange($event) {
-    this.tabIndex = 1
-  }
-
   capture() {
     this.tabIndex = 2
   }
@@ -91,14 +81,25 @@ export class DashboardComponent implements OnInit {
     this.dialog.closeAll()
   }
 
-  onBlurMethod() {
-    console.log(this.doc_value)
+  onNextMethod() {
+    if (!this.doc_choice) {
+      alert("Please select an ID")
+      return
+    }
+    if (this.doc_choice == 0) {
+      this.tabIndex = 1
+    }
     if (this.doc_choice == 2 && this.doc_value.length != 12) {
       alert('Please enter valid Aadhaar Card Number')
+      return
     }
     if (this.doc_choice == 2 && this.doc_value.length == 12) {
       //TODO api call
       this.tabIndex = 1
     }
+  }
+
+  exportAsXLSX() {
+    this.excelService.exportAsExcelFile(this.data, 'export-to-excel');
   }
 }
