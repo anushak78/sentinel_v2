@@ -1,0 +1,105 @@
+<div class="box-container">
+    <div class="grid-2">
+        <h2 class="mat-h2">Dashboard</h2>
+        <div class="right">
+            <button mat-raised-button color="primary" (click)="gotoPage('dashboard')">Back</button>
+        </div>
+    </div>
+    <div>
+        <div class="box-container">
+            <div class="grid-3">
+                <h2 class="mat-h3">Candidate List</h2>
+                <div>
+                    <mat-form-field>
+                        <mat-label>Search</mat-label>
+                        <input type="text" matInput (keyup)="applyFilter($event.target.value)">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div></div>
+            </div>
+            <mat-table #table [dataSource]="table_data">
+
+                <ng-container *ngFor="let disCol of displayedColumns; let colIndex = index" matColumnDef="{{disCol}}">
+                    <ng-container *ngIf="disCol != 'edit'">
+                        <mat-header-cell *matHeaderCellDef>{{disCol}}</mat-header-cell>
+                    </ng-container>
+                    <ng-container *ngIf="disCol == 'edit'">
+                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    </ng-container>
+                    <mat-cell *matCellDef="let element " style="cursor: default;"
+                        (click)="openDialogWithTemplateRef(editModule, element)">
+                        <span *ngIf="disCol != 'status'">{{element[disCol]}}</span>
+                        <span *ngIf="disCol == 'status'">{{element[disCol] || 'Pending'}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+</div>
+
+<ng-template #editModule>
+    <div class="grid-2">
+        <h2 matDialogTitle>Candidate Data</h2>
+        <a class="right">
+            <mat-icon matDialogClose style="font-size: medium!important;">close</mat-icon>
+        </a>
+    </div>
+    <hr>
+    <mat-dialog-content>
+        <mat-tab-group dynamicHeight [(selectedIndex)]="tabIndex">
+            <mat-tab label="Step 1" [disabled]="true">
+                <div class="box-container">
+                    Please select ID of your choice
+                    <mat-radio-group class="example-radio-group" [(ngModel)]="doc_choice">
+                        <mat-radio-button value="0" class="example-radio-button" color="primary"
+                            (change)="radioChange($event)"> UID</mat-radio-button>
+                        <mat-radio-button value="1" class="example-radio-button" color="primary"> VID</mat-radio-button>
+                        <mat-radio-button value="2" class="example-radio-button" color="primary"> Aadhaar
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <div class="field" *ngIf="doc_choice != 0">
+                        <mat-form-field>
+                            <mat-label>Enter value</mat-label>
+                            <input type="text" matInput [(ngModel)]="doc_value" (blur)="onBlurMethod()">
+                        </mat-form-field>
+                    </div>
+                    <!--
+                    <div class="field" *ngIf="doc_choice != 0">
+                        <mat-form-field>
+                            <mat-label>Enter exception password</mat-label>
+                            <input type="password" matInput [(ngModel)]="doc_password">
+                        </mat-form-field>
+                    </div>
+                    <div class="field" *ngIf="doc_choice != 0">
+                        <mat-form-field>
+                            <mat-label>Enter reason</mat-label>
+                            <textarea matInput [(ngModel)]="doc_reason"></textarea>
+                        </mat-form-field>
+                    </div>
+                    -->
+                </div>
+
+            </mat-tab>
+            <mat-tab label="Step 2" [disabled]="true">
+                <div class="box-container center">
+                    <div class="fingerprint"></div>
+                    <button mat-raised-button color="default" (click)="capture()">Capture</button>
+                </div>
+            </mat-tab>
+            <mat-tab label="Step 3" [disabled]="true">
+                <div class="box-container center">
+                    <h2 class="mat-h1">
+                        <span style="color: green!important"><b><mat-icon>done_outline</mat-icon>Completed Successfully</b></span>
+                    </h2>
+                    <button (click)="closeDialog()" mat-raised-button color="primary">Go Back</button>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-dialog-content>
+    <hr>
+</ng-template>
