@@ -1,17 +1,17 @@
 <div class="box-container">
     <div class="grid-2">
         <h2 class="mat-h2">Dashboard</h2>
-        <div class="right">
+        <!-- <div class="right">
             <button mat-raised-button color="primary" (click)="gotoPage('dashboard')">Back</button>
-        </div>
+        </div> -->
     </div>
     <div>
         <div class="box-container">
             <div class="grid-3">
-                <h2 class="mat-h3">Candidate List</h2>
+                <h2 class="mat-h3">Policy List</h2>
                 <div>
                     <mat-form-field>
-                        <mat-label>Search</mat-label>
+                        <mat-label>Search By Policy Details</mat-label>
                         <input type="text" matInput (keyup)="applyFilter($event.target.value)">
                         <mat-icon matSuffix>search</mat-icon>
                     </mat-form-field>

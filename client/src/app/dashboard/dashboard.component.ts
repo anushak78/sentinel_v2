@@ -32,7 +32,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.displayedColumns = ['Client Code', 'First Name', 'Mobile No.', 'Email', 'Test City']
+    // this.displayedColumns = ['Client Code', 'First Name', 'Mobile No.', 'Email', 'Test City']
+    this.displayedColumns = ['POLICY NO', 'PLAN ID', 'THREAD ID', 'UIN', 'STATUS']
     let data = []
     this.table_data = new MatTableDataSource(data)
     this.edit_data = {}
