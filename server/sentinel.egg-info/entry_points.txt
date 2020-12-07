@@ -1,0 +1,5 @@
+      [paste.app_factory]
+      main = sentinel:main
+      [console_scripts]
+      initialize_sentinel_db = sentinel.scripts.initializedb:main
+      
