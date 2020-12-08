@@ -16,6 +16,22 @@
   }
 }
 
+.accept {
+  border: solid 2px green;
+  border-radius: 4px;
+  overflow: hidden;
+  display: block;
+  padding: 0% 0% 5% 0%;
+}
+
+.reject {
+  border: solid 2px red;
+  border-radius: 4px;
+  overflow: hidden;
+  display: block;
+  padding: 0% 0% 5% 0%;
+}
+
 .example-box {
   padding: 20px 10px;
   border-bottom: solid 1px #ccc;

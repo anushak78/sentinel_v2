@@ -109,36 +109,40 @@
     </div>
   </mat-dialog-content>
   <hr>
-  <mat-dialog-actions align="center" *ngIf="!set_status">
-    <button mat-raised-button style="background-color: green!important;color: whitesmoke;"
-      (click)="statusSet(true)">Accept</button>
-    <button mat-raised-button color="warn" (click)="statusSet(false)">Reject</button>
-  </mat-dialog-actions>
-  <div class="center" *ngIf="status_flag && set_status">
-    <span style="color: green!important"><b>
-        <mat-icon>done_outline</mat-icon>Accepted
-      </b></span>
-  </div>
-  <div class="center" *ngIf="!status_flag && set_status">
-    <span style="color: red!important"><b>
-        <mat-icon>close</mat-icon>Rejected
-      </b></span>
-  </div>
-  <mat-dialog-actions align="center" *ngIf="set_status">
-    <form>
-      <div class="field" *ngIf="status_flag">
-        <mat-form-field>
-          <mat-label>Label 1</mat-label>
-          <mat-select></mat-select>
-        </mat-form-field>
+  <div *ngIf="tabIndex == 1">
+    <mat-dialog-actions align="center" *ngIf="!set_status">
+      <button mat-raised-button style="background-color: green!important;color: whitesmoke;"
+        (click)="statusSet(true)">Accept</button>
+      <button mat-raised-button color="warn" (click)="statusSet(false)">Reject</button>
+    </mat-dialog-actions>
+    <div *ngIf="set_status" [ngClass]="(status_flag==true)?'accept':'reject'">
+      <div class="center" *ngIf="status_flag && set_status">
+        <span style="color: green!important"><b>
+            <mat-icon>done_outline</mat-icon>Accepted
+          </b></span>
       </div>
-      <div class="field">
-        <mat-form-field>
-          <mat-label>Reason</mat-label>
-          <mat-select></mat-select>
-        </mat-form-field>
+      <div class="center" *ngIf="!status_flag && set_status">
+        <span style="color: red!important"><b>
+            <mat-icon>close</mat-icon>Rejected
+          </b></span>
       </div>
-      <button mat-raised-button color="primary" (click)="submit()">Submit</button>
-    </form>
-  </mat-dialog-actions>
+      <mat-dialog-actions align="center" *ngIf="set_status">
+        <form>
+          <div class="field" *ngIf="status_flag">
+            <mat-form-field>
+              <mat-label>Label 1</mat-label>
+              <mat-select></mat-select>
+            </mat-form-field>
+          </div>
+          <div class="field">
+            <mat-form-field>
+              <mat-label>Reason</mat-label>
+              <mat-select></mat-select>
+            </mat-form-field>
+          </div>
+          <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+        </form>
+      </mat-dialog-actions>
+    </div>
+  </div>
 </ng-template>
