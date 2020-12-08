@@ -43,6 +43,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { KatexModule } from 'ng-katex';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {HttpRequestInterceptor} from './http-request-interceptor';
+import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
+import { CreateFormComponent } from './create-form/create-form.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import {HttpRequestInterceptor} from './http-request-interceptor';
     DashboardComponent,
     LayoutComponent,
     MessageDialog,
+    DashboardPageComponent,
+    CreateFormComponent,
   ],
   imports: [
     HttpClientModule,
