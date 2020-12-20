@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "form-builder": {
+    "sentinel": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/form-builder",
+            "outputPath": "dist/sentinel",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -70,18 +70,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "form-builder:build"
+            "browserTarget": "sentinel:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "form-builder:build:production"
+              "browserTarget": "sentinel:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "form-builder:build"
+            "browserTarget": "sentinel:build"
           }
         },
         "test": {
@@ -121,16 +121,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "form-builder:serve"
+            "devServerTarget": "sentinel:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "form-builder:serve:production"
+              "devServerTarget": "sentinel:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "form-builder"
+  "defaultProject": "sentinel"
 }
