@@ -32,7 +32,7 @@ svc_logout = Service(
     path="/core/logout", cors_policy=cors.POLICY)
 
 svc_whoami = Service(
-    name="whoami", permission=NO_PERMISSION_REQUIRED,
+    name="core.whoami", permission=NO_PERMISSION_REQUIRED,
     path="/whoami", cors_policy=cors.POLICY)
 
 
