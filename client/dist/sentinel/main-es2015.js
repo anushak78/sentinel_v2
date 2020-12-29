@@ -303,7 +303,7 @@ __webpack_require__.r(__webpack_exports__);
 
 let AppComponent = class AppComponent {
     constructor() {
-        this.title = 'form-builder';
+        this.title = 'sentinel';
         this.todo = [
             'Input',
             'Textarea',

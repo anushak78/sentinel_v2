@@ -508,7 +508,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var AppComponent = function AppComponent() {
       _classCallCheck(this, AppComponent);
 
-      this.title = 'form-builder';
+      this.title = 'sentinel';
       this.todo = ['Input', 'Textarea', 'Select', 'Checkbox', 'Button'];
     };
 

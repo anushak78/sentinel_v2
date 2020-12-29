@@ -9,7 +9,7 @@ import {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'form-builder';
+  title = 'sentinel';
   todo = [
     'Input',
     'Textarea',
