@@ -1,5 +1,4 @@
-For Developer Users, Please follow these steps (SBI Users please ignore)
-## Dependencies
+##Dependencies
 npm - v6.14.6
 node - v12.18.3
 

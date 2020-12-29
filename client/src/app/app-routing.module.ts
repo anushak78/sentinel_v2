@@ -4,8 +4,6 @@ import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
 import { AuthGuard } from './auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
-import { CreateFormComponent } from './create-form/create-form.component';
 
 
 const routes: Routes = [
@@ -19,20 +17,12 @@ const routes: Routes = [
     canActivateChild: [AuthGuard],
     children: [
       {
-        path: 'dashboard-aadhar',
+        path: 'dashboard',
         component: DashboardComponent,
       },
       {
-        path: 'dashboard',
-        component: DashboardPageComponent,
-      },
-      {
-        path: 'form-page',
-        component: CreateFormComponent,
-      },
-      {
         path: '',
-        component: DashboardPageComponent,
+        component: DashboardComponent,
       },
     ]
   },

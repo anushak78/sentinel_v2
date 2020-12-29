@@ -5,17 +5,18 @@ import transaction
 from pyramid.paster import (
     get_appsettings,
     setup_logging,
-    )
+)
 
 from pyramid.scripts.common import parse_vars
+
+from ..models import UserMaster
 
 from ..models.meta import Base
 from ..models import (
     get_engine,
     get_session_factory,
     get_tm_session,
-    )
-from ..models import MyModel
+)
 
 
 def usage(argv):
@@ -41,5 +42,6 @@ def main(argv=sys.argv):
     with transaction.manager:
         dbsession = get_tm_session(session_factory, transaction.manager)
 
-        model = MyModel(name='one', value=1)
+        model = UserMaster(name='Admin', login='Admin', role=0,
+                           title=0, designation='Admin', status='A')
         dbsession.add(model)
