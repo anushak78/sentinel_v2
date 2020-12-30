@@ -45,3 +45,4 @@ def main(argv=sys.argv):
         model = UserMaster(name='Admin', login='Admin', role=0,
                            title=0, designation='Admin', status='A')
         dbsession.add(model)
+        print (model.sum_name,model.sum_login)
