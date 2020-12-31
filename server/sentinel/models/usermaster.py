@@ -43,27 +43,28 @@ class UserLoginMaster(Base):
     slum_designation = Column(Text)
     slum_status = Column(Text)
 
-    def __init__(self, login, name, role, title, designation, status):
-        self.login = slum_login
-        self.name = slum_name
-        self.role = slum_role
-        self.title = slum_title
-        self.designation = slum_designation
-        self.status = slum_status
+    def __init__(self, login, password, name, role, title, designation, status):
+        self.slum_login = login
+        self.slum_password = password
+        self.slum_name = name
+        self.slum_role = role
+        self.slum_title = title
+        self.slum_designation = designation
+        self.slum_status = status
 
     def set_password(self, password):
-        self.password = _sha512(password)
+        self.slum_password = _sha512(password)
 
     def check_password(self, password):
-        return self.password == _sha512(password)
+        return self.slum_password == _sha512(password)
 
     @classmethod
     def by_login(cls, DBSession, login):
-        return DBSession.query(UserLoginMaster).filter_by(login=login).first()
+        return DBSession.query(UserLoginMaster).filter_by(slum_login=login).first()
 
     @classmethod
     def get_vo_users(cls, DBSession):
-        return DBSession.query(UserMaster).filter_by(role=1).all()
+        return DBSession.query(UserMaster).filter_by(slum_role=1).all()
 
 
 def _sha512(text):
