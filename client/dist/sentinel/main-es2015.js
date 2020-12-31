@@ -136,55 +136,6 @@ JsontoexcelService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 /***/ }),
 
-/***/ "./src/app/Service/login.service.ts":
-/*!******************************************!*\
-  !*** ./src/app/Service/login.service.ts ***!
-  \******************************************/
-/*! exports provided: LoginService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginService", function() { return LoginService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-
-
-
-
-let LoginService = class LoginService {
-    constructor(http) {
-        this.http = http;
-    }
-    get currentUserValue() {
-        return JSON.parse(sessionStorage.getItem('currentUser'));
-    }
-    login(username, password) {
-        return this.http.post('API', { username, password })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(user => {
-            sessionStorage.setItem('currentUser', JSON.stringify(user));
-            return user;
-        }));
-    }
-    logout() {
-        sessionStorage.removeItem('currentUser');
-    }
-};
-LoginService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
-];
-LoginService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    })
-], LoginService);
-
-
-
-/***/ }),
-
 /***/ "./src/app/app-routing.module.ts":
 /*!***************************************!*\
   !*** ./src/app/app-routing.module.ts ***!
@@ -862,9 +813,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/__ivy_ngcc__/esm2015/material.js");
-/* harmony import */ var _Service_login_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Service/login.service */ "./src/app/Service/login.service.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-
+/* harmony import */ var _login_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./login.service */ "./src/app/login/login.service.ts");
 
 
 
@@ -897,14 +846,19 @@ let LoginComponent = class LoginComponent {
     }
     submit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            this.login.login(this.signInForm.controls['user_id'].value, this.signInForm.controls['password'].value)
-                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])())
-                .subscribe(data => {
-                console.log(data);
-                //TODO: add navigation
-            });
-            sessionStorage.setItem('login', 'true');
-            this.router.navigate(['dashboard']);
+            let rel;
+            rel = yield this.login.login(this.signInForm.controls['user_id'].value, this.signInForm.controls['password'].value);
+            if (rel) {
+                let user = JSON.parse(sessionStorage.getItem('currentUser'));
+                if (user['authenticated']) {
+                    sessionStorage.setItem('login', 'true');
+                    this.router.navigate(['dashboard']);
+                }
+                else {
+                    alert("Login credentials don't match");
+                    return;
+                }
+            }
         });
     }
     changePassword() {
@@ -926,7 +880,7 @@ let LoginComponent = class LoginComponent {
 LoginComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
     { type: _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialog"] },
-    { type: _Service_login_service__WEBPACK_IMPORTED_MODULE_5__["LoginService"] }
+    { type: _login_service__WEBPACK_IMPORTED_MODULE_5__["LoginService"] }
 ];
 Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('messageDlg', { static: false })
@@ -941,6 +895,74 @@ LoginComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! ./login.component.scss */ "./src/app/login/login.component.scss")).default]
     })
 ], LoginComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/login/login.service.ts":
+/*!****************************************!*\
+  !*** ./src/app/login/login.service.ts ***!
+  \****************************************/
+/*! exports provided: LoginService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginService", function() { return LoginService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+
+
+
+let LoginService = class LoginService {
+    constructor(http) {
+        this.http = http;
+    }
+    get getErrorMessage() {
+        return this.httpErrorMessage;
+    }
+    get currentUserValue() {
+        return JSON.parse(sessionStorage.getItem('currentUser'));
+    }
+    login(username, password) {
+        console.log(username);
+        return this.http.post('http://0.0.0.0:6543/core/login', { login: username, password: password })
+            .toPromise().then((user => {
+            console.log(user);
+            sessionStorage.setItem('currentUser', JSON.stringify(user));
+            return true;
+        })).catch((error) => {
+            console.log(error);
+            this.errorHandler(error);
+            return false;
+        });
+    }
+    logout() {
+        sessionStorage.removeItem('currentUser');
+    }
+    errorHandler(error) {
+        if (error.status === 400) {
+            this.httpErrorMessage = 'Server Error';
+        }
+        else if (error.status === 403) {
+            this.httpErrorMessage = 'Forbidden!!';
+        }
+        else {
+            this.httpErrorMessage = 'Server Error!!';
+        }
+        return false;
+    }
+};
+LoginService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
+];
+LoginService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+], LoginService);
 
 
 
