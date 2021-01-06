@@ -10,6 +10,7 @@ from pyramid.paster import (
 from pyramid.scripts.common import parse_vars
 
 from ..models import UserMaster
+from ..models import UserLoginMaster
 
 from ..models.meta import Base
 from ..models import (
@@ -45,3 +46,6 @@ def main(argv=sys.argv):
         model = UserMaster(name='Admin', login='Admin', role=0,
                            title=0, designation='Admin', status='A')
         dbsession.add(model)
+        print (model.sum_name,model.sum_login)
+        model_n = UserLoginMaster(login='Admin',name='Admin',password='A',role=0,title=0, designation='Admin', status='A')
+        dbsession.add(model_n)

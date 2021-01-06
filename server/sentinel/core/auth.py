@@ -35,10 +35,9 @@ svc_whoami = Service(
     name="core.whoami", permission=NO_PERMISSION_REQUIRED,
     path="/whoami", cors_policy=cors.POLICY)
 
-
 @svc_login.post(require_csrf=False)
 def login(request):
-    log("Inside Login Function")
+    log.info("Inside Login Function")
     login = request.json_body['login']
     passwd = request.json_body['password']
     role = request.json_body['role']
