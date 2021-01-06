@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MessageDialogComponent } from "../dialog/message/message.component";
 import { Router } from "@angular/router";
 import { MatDialog } from '@angular/material';
-import { LoginService } from '../Service/login.service';
+import { LoginService } from './login.service';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -45,15 +45,19 @@ export class LoginComponent implements OnInit {
   }
 
   async submit() {
-    this.login.login(this.signInForm.controls['user_id'].value, this.signInForm.controls['password'].value)
-      .pipe(first())
-      .subscribe(
-        data => { 
-          console.log(data);
-          //TODO: add navigation
-    })
-    sessionStorage.setItem('login', 'true');
-    this.router.navigate(['dashboard'])
+    let rel;
+    rel = await this.login.login(this.signInForm.controls['user_id'].value, this.signInForm.controls['password'].value)
+    if (rel) {
+      let user = JSON.parse(sessionStorage.getItem('currentUser'))
+      if (user['authenticated']) {
+        sessionStorage.setItem('login', 'true');
+        this.router.navigate(['dashboard'])
+      }
+      else {
+        alert("Login credentials don't match")
+        return
+      }
+    }
   }
 
   changePassword() {
