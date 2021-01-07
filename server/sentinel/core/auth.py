@@ -40,7 +40,8 @@ def login(request):
     log.info("Inside Login Function")
     login = request.json_body['login']
     passwd = request.json_body['password']
-    role = request.json_body['role']
+    #role = request.json_body['role']
+    role = 0
     ret = None
     # TODO: Board role
     # Admin and VO role login
@@ -51,11 +52,11 @@ def login(request):
             request.response.headerlist.extend(headers)
             # set the new csrf token in response
             new_csrf_token(request)
-            request.session["login"] = login
-            request.session["name"] = user.name
+            request.session["login"] = user.slum_login
+            request.session["name"] = user.slum_name
             request.session["id"] = user.id
-            request.session["role"] = user.role
-            request.session["title"] = user.title
+            request.session["role"] = user.slum_role
+            request.session["title"] = user.slum_title
             request.session["token"] = new_csrf_token(request)
             ret = compute_whoami(request, login)
         else:
