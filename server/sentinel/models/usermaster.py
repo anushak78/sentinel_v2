@@ -45,7 +45,7 @@ class UserLoginMaster(Base):
 
     def __init__(self, login, password, name, role, title, designation, status):
         self.slum_login = login
-        self.slum_password = password
+        self.set_password(password)
         self.slum_name = name
         self.slum_role = role
         self.slum_title = title
