@@ -21,7 +21,7 @@ export class LoginService {
 
   login(username: string, password: string) {
     console.log(username)
-    return this.http.post('http://0.0.0.0:6543/core/login', {login: username, password: password})
+    return this.http.post('/core/login', {login: username, password: password})
       .toPromise().then((user => {
         console.log(user)
         sessionStorage.setItem('currentUser', JSON.stringify(user));

@@ -12,8 +12,9 @@ def main(global_config, **settings):
         config.include('cornice')
         config.include('pyramid_tm')
         config.include('pyramid_jinja2')
+        config.add_jinja2_renderer('.html')
         config.include('.routes')
-        config.add_route('home', '/home')
+        config.include('.views')
 
         # Store the CSRF token in cookie as the Angular HttpClient reads
         # from the cookie to set the appropriate headers. Configure the
@@ -24,6 +25,6 @@ def main(global_config, **settings):
         config.set_default_csrf_options(
             require_csrf=True, token='XSRF-TOKEN', header='X-XSRF-TOKEN')
 
-        config.add_static_view('/home', settings.get('client_url'))
         config.scan()
+        config.add_static_view(name='/', path=settings.get('client_url'))
     return config.make_wsgi_app()
