@@ -17,6 +17,7 @@ from pyramid.security import (
 )
 from pyramid.csrf import new_csrf_token
 
+
 from cornice import Service
 
 from ..models.usermaster import UserLoginMaster
