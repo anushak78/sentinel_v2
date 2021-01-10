@@ -12,6 +12,16 @@ from .usermaster import (
     UserLoginMaster
 )
 
+from .txnmaster import (
+    ModuleMaster,
+    TxnActivityMaster,
+    TxnActivityAudit
+)
+
+from .statusmaster import (
+    CaseStatusMaster
+)
+
 
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup
