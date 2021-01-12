@@ -11,6 +11,13 @@ from pyramid.scripts.common import parse_vars
 
 from ..models import UserMaster
 from ..models import UserLoginMaster
+from ..models import ModuleMaster
+from ..models import TxnActivityMaster
+from ..models import CaseStatusMaster
+from ..models import FlcInputTable
+from ..models import FlcOutputTable
+from ..models import FlcOutputTablePostQC 
+
 
 from ..models.meta import Base
 from ..models import (
